@@ -23,11 +23,7 @@ public class UserRepositoryService {
 	private MongoTemplate mongoTemplate; 
 	
 	
-	/**
-     * Retrieves a list of all usernames from the database, sorted by score.
-     *
-     * @return a list of usernames
-     */
+	
     public List<String> getAllUsernames() {
         Query query = new Query();
         query.fields().include("userName");
@@ -39,31 +35,17 @@ public class UserRepositoryService {
         return usernames;
     }
 
-    /**
-     * Retrieves the user details for the given user ID.
-     *
-     * @param userId the ID of the user to retrieve details for
-     * @return the User object containing the user details, or null if no user is found with the given ID
-     */
+    
     public User getUserDetails(Long userId) {
         return userRepository.findByUserId(userId).orElse(null);
     }
 
-	/**
-     * Deletes the user with the given ID.
-     *
-     * @param userId the ID of the user to delete
-     */
+	
     public void deleteUser(Long userId) {
         userRepository.deleteByUserId(userId);
     }
 
-    /**
-     * Adds a new user with the given username.
-     *
-     * @param username the username of the user to add
-     * @return the added User object
-     */
+    
     public User addUser(Long userId , String username) {
         // Generate a unique user ID
         
@@ -72,13 +54,7 @@ public class UserRepositoryService {
         user.setUserName(username);
         return userRepository.save(user);
     }
-    /**
-     * Updates the score of the user with the given ID.
-     *
-     * @param userId the ID of the user to update
-     * @param score the new score
-     * @return the updated User object, or null if no user is found with the given ID
-     */
+    
     public User updateUserScore(Long userId, Long score) {
         Optional<User> optionalUser = userRepository.findByUserId(userId);
         if (optionalUser.isPresent()) {
